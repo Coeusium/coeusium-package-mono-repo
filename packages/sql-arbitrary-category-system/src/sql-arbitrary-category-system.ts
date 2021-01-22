@@ -103,8 +103,8 @@ export async function addCategory(
   while (await categoryIdExists(dbInfo, id)) id = makeId();
   await execute(dbInfo, sql, [setId, id, categoryName]);
   if (parentId && (await categoryIdExists(dbInfo, parentId))) {
-    const sql = `UPDATE category SET parent = ? WHERE id = ?;`;
-    await execute(dbInfo, sql, [parentId, id]);
+    const sql2 = `UPDATE category SET parent = ? WHERE id = ?;`;
+    await execute(dbInfo, sql2, [parentId, id]);
   }
   return id;
 }
@@ -134,7 +134,10 @@ export async function getCategoryDescendants(
   const children = await getCategoryChildren(dbInfo, id);
   const rest = (
     await Promise.all(
-      children.map(async ({ id }) => await getCategoryDescendants(dbInfo, id)),
+      children.map(
+        async ({ id: childId }) =>
+          await getCategoryDescendants(dbInfo, childId),
+      ),
     )
   ).reduce((a, c) => a.concat(c), []);
   return [...children, ...rest];
