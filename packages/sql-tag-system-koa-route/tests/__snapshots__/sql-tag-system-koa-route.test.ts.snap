@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sql-tag-system-koa-route-test Has Correct API 1`] = `
+Array [
+  "destroy",
+  "setupTagSystem",
+  "createGetTagHandler",
+  "createGetTagListHandler",
+  "createTagGetHandler",
+  "createPostTagHandler",
+  "createTagDeleteHandler",
+  "getRouter",
+  "getTagScopedRouter",
+]
+`;
