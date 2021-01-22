@@ -7511,6 +7511,13 @@ sql-arbitrary-category-system@^0.0.7:
   dependencies:
     "@almaclaine/mysql-utils" "^0.1.0"
 
+sql-bookmark-system@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/sql-bookmark-system/-/sql-bookmark-system-0.0.1.tgz#1d765909c695a4ce5f05e10c00ff1a6a5bf60ac4"
+  integrity sha512-cN55abVU0i78UYFhNclUsKfvFKszdtQu5mQ+w08IROstyxTLH4raLodW708cAw0fMNfOEQ7KX5oFbevsdJ3lUg==
+  dependencies:
+    "@almaclaine/mysql-utils" "^0.1.0"
+
 sql-tag-system@^0.0.7:
   version "0.0.7"
   resolved "https://registry.npmjs.org/sql-tag-system/-/sql-tag-system-0.0.7.tgz"
