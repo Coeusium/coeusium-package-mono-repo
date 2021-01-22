@@ -1,0 +1,51 @@
+{
+  "name": "sql-bookmark-system-fetch-utils",
+  "version": "0.0.1",
+  "description": "sql bookmark system fetch utils",
+  "main": "dist/index.bundle.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prettier": "prettier --write './src/**/*.ts'",
+    "lint": "tslint --fix './src/**/*.ts'",
+    "test": "npx jest",
+    "clean:build": "npm run clean",
+    "clean": "npx rimraf dist",
+    "rollup": "rollup -c ./rollup.config.js",
+    "build": "npm run test && npm run clean && npm run compile && npm run rollup",
+    "compile": "tsc --outDir dist --project tsconfig.build.json",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Coeusium/coeusium-package-mono-repo.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "Sql",
+    "Bookmark",
+    "System",
+    "Fetch",
+    "Utils"
+  ],
+  "author": "Alessandro Maclaine",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Coeusium/coeusium-package-mono-repo/issues"
+  },
+  "homepage": "https://github.com/Coeusium/coeusium-package-mono-repo",
+  "dependencies": {},
+  "devDependencies": {
+    "@almaclaine/rollup-config": "^0.0.2",
+    "@almaclaine/ts-config": "^0.0.1",
+    "@types/node": "^14.14.9",
+    "esm": "^3.2.25",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.1.2",
+    "@types/jest": "^26.0.15",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.4.4"
+  }
+}
