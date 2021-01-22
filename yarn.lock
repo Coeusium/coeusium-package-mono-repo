@@ -7492,6 +7492,13 @@ sprintf-js@~1.0.2:
   resolved "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.0.3.tgz"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
+sql-arbitrary-category-system@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/sql-arbitrary-category-system/-/sql-arbitrary-category-system-0.0.5.tgz#cc495b957a2403f659d9019d57ca3bef3622134f"
+  integrity sha512-FpxslUwWBsuxkZv4PiRZ7vGO5swYB58ZT2rlaazqW+C3fWdp/tobQFn3jxzQmGyH43KaLNv4NZ2mz8b2MHoaEg==
+  dependencies:
+    "@almaclaine/mysql-utils" "^0.1.0"
+
 sql-arbitrary-category-system@^0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/sql-arbitrary-category-system/-/sql-arbitrary-category-system-0.0.7.tgz#bb9d368b8b7267536850b662f85755720e89f03d"
