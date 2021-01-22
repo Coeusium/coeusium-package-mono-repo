@@ -12,6 +12,11 @@
   resolved "https://registry.yarnpkg.com/@almaclaine/koa-utils/-/koa-utils-0.0.5.tgz#96df98b4ba66357899f2228ba761e6da1236ca70"
   integrity sha512-CPDuAO41h6SwXOyBeHgTmpRHfYFHWQGVvHBCJq2XfiMNK40Wk1OZrjwtHEuLR5FUQ8pW6NfUf8JZw8c7kKje/A==
 
+"@almaclaine/koa-utils@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@almaclaine/koa-utils/-/koa-utils-0.0.7.tgz#9cfcb1e4b44c1053933d12323f360e56ca919e18"
+  integrity sha512-5PK6g/hU3ZgVOBRJllIL9Jxp8XfcRTE8j4rtLHMhQSGC1FJbwappRnkjanEdueyYTGMRolZCNr/bBu0XCESIHw==
+
 "@almaclaine/mysql-utils@^0.1.0":
   version "0.1.0"
   resolved "https://registry.npmjs.org/@almaclaine/mysql-utils/-/mysql-utils-0.1.0.tgz"
