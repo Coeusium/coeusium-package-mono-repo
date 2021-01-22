@@ -1,0 +1,3 @@
+# typescript-package-template
+
+## API
