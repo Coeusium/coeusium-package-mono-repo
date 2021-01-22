@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sql-arbitrary-category-system-koa-route Has Correct API 1`] = `
+Array [
+  "destroy",
+  "setupCategorySystem",
+  "createGetCategorySetHandler",
+  "createGetCategorySetListHandler",
+  "createCategorySetGetHandler",
+  "createPostCategorySetHandler",
+  "createCategorySetDeleteHandler",
+  "getCategorySetRouter",
+  "createGetCategoryHandler",
+  "createGetTopLevelCategoriesHandler",
+  "createGetCategoryChildrenHandler",
+  "createGetCategoryDescendantsHandler",
+  "createCategoryGetHandler",
+  "createPostCategoryHandler",
+  "createCategoryDeleteHandler",
+  "getCategoryRouter",
+  "getScopedRouter",
+]
+`;
