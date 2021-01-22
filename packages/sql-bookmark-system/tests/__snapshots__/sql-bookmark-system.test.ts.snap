@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sql-bookmark-system Has Correct API 1`] = `
+Array [
+  "setupBookmarkSystem",
+  "destroy",
+  "bookmarkIdExists",
+  "addBookmark",
+  "getBookmark",
+  "listBookmarks",
+  "deleteBookmark",
+]
+`;
