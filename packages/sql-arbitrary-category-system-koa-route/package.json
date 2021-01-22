@@ -1,6 +1,6 @@
 {
   "name": "sql-arbitrary-category-system-koa-route",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "sql arbitrary category system koa routes",
   "main": "dist/index.bundle.js",
   "module": "dist/index.js",
