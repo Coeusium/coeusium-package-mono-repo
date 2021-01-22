@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sql-category-system Has Correct API 1`] = `
+Array [
+  "setupCategorySystem",
+  "destroy",
+  "categorySetIdExists",
+  "addCategorySet",
+  "getCategorySet",
+  "listCategorySets",
+  "deleteCategorySet",
+  "categoryIdExists",
+  "addCategory",
+  "getCategory",
+  "getTopLevelCategories",
+  "getCategoryChildren",
+  "getCategoryDescendants",
+  "deleteCategory",
+]
+`;
