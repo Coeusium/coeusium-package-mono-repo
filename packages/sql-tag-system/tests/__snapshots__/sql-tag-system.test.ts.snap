@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sql-tag-system Has Correct API 1`] = `
+Array [
+  "setupTagSystem",
+  "destroy",
+  "tagIdExists",
+  "addTag",
+  "getTag",
+  "listTags",
+  "deleteTag",
+]
+`;
