@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sql-bookmark-system-koa-route-test Has Correct API 1`] = `
+Array [
+  "destroy",
+  "setupBookmarkSystem",
+  "createGetBookmarkHandler",
+  "createGetBookmarkListHandler",
+  "createBookmarkGetHandler",
+  "createPostBookmarkHandler",
+  "createBookmarkDeleteHandler",
+  "getRouter",
+  "getBookmarkScopedRouter",
+]
+`;
