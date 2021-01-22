@@ -1,6 +1,6 @@
 {
   "name": "sql-user-auth-system",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "sql user auth system",
   "main": "dist/index.bundle.js",
   "module": "dist/index.js",
@@ -35,7 +35,6 @@
     "url": "https://github.com/Coeusium/coeusium-package-mono-repo/issues"
   },
   "homepage": "https://github.com/Coeusium/coeusium-package-mono-repo",
-  "dependencies": {},
   "devDependencies": {
     "@almaclaine/rollup-config": "^0.0.2",
     "@almaclaine/ts-config": "^0.1.2",
