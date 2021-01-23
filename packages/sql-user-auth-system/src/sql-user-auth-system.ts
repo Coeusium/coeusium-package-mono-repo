@@ -59,28 +59,11 @@ CREATE TABLE IF NOT EXISTS user_password_reset (
 const createAuthGroupTable = `
 CREATE TABLE IF NOT EXISTS auth_group (
     group_name VARCHAR(32) NOT NULL UNIQUE,
-    group_parent VARCHAR(32) UNIQUE,
-    PRIMARY KEY(group_name, group_parent),
-    FOREIGN KEY (group_parent) REFERENCES auth_group(group_name)
+    group_parent VARCHAR(32) UNIQUE DEFAULT NULL,
+    PRIMARY KEY(group_name),
+    FOREIGN KEY (group_parent) REFERENCES auth_group(group_name),
+    CONSTRAINT GroupParentUnequal CHECK (group_name != group_parent)
 );`;
-
-import { readFileSync } from 'fs';
-
-const createNoSelfParentInsertTrigger = readFileSync(
-  __dirname + '/test.sql',
-  'utf-8',
-);
-
-const createNoSelfParentUpdateTrigger = `
-DROP TRIGGER IF EXISTS noSelfParentUpdateTrigger;
-CREATE Trigger \`noSelfParentUpdateTrigger\` BEFORE Update ON \`auth_group\`
-    FOR EACH ROW
-    BEGIN
-        IF(new.group_name = new.group_parent) THEN
-            SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'group_name and group_parent cannot be the same'
-        END IF;
-    END;`;
 
 const createAuthGroupMembershipTable = `
 CREATE TABLE IF NOT EXISTS auth_group_membership (
@@ -90,8 +73,6 @@ CREATE TABLE IF NOT EXISTS auth_group_membership (
     FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (group_name) REFERENCES auth_group(group_name)
 );`;
-
-import { createConnection } from 'mysql2/promise';
 
 export async function setupUserAuthSystem(dbInfo: ConnectionInfo) {
   if (!dbInfo.host) throw new Error('Must provide host name');
@@ -105,19 +86,13 @@ export async function setupUserAuthSystem(dbInfo: ConnectionInfo) {
     `CREATE DATABASE IF NOT EXISTS ${database};`,
   );
 
-  const conn = await createConnection(dbInfo);
-
-  await conn.query(createNoSelfParentInsertTrigger);
-
   await execute({ ...dbInfo, database }, createUserTable);
   await execute({ ...dbInfo, database }, createUserPasswordTable);
   await execute({ ...dbInfo, database }, createUserLoginTable);
   await execute({ ...dbInfo, database }, createUserLogoutTable);
   await execute({ ...dbInfo, database }, createUserPasswordResetTable);
   await execute({ ...dbInfo, database }, createAuthGroupTable);
-  // await execute({...dbInfo, database}, createNoSelfParentInsertTrigger);
-  // await execute({...dbInfo, database}, createNoSelfParentUpdateTrigger);
-  // await execute({...dbInfo, database}, createAuthGroupMembershipTable);
+  await execute({ ...dbInfo, database }, createAuthGroupMembershipTable);
   execute.destroyConnections();
 }
 
@@ -125,22 +100,10 @@ export async function destroy() {
   execute.destroyConnections();
 }
 
-const dbInfo = {
-  host: 'localhost',
-  user: 'root',
-  password: process.env.MYSQL_PW,
-  database: 'sql_user_auth_system',
-};
-
-(async () => {
-  await setupUserAuthSystem(dbInfo);
-})();
-
-//
-// export async function tagIdExists(dbInfo: ConnectionInfo, id: string) {
-//     const sql = `SELECT id FROM tag WHERE id = ? LIMIT 1;`;
-//     return (await execute(dbInfo, sql, [id])).length === 1;
-// }
+export async function tagIdExists(dbInfo: ConnectionInfo, id: string) {
+  const sql = `SELECT id FROM tag WHERE id = ? LIMIT 1;`;
+  return (await execute(dbInfo, sql, [id])).length === 1;
+}
 //
 // export async function addTag(dbInfo: ConnectionInfo, tag: string) {
 //     const sql = `INSERT INTO tag (id, tag) VALUES (?, ?);`;
