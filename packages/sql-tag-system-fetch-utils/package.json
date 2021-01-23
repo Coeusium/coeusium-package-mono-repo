@@ -1,6 +1,6 @@
 {
   "name": "sql-tag-system-fetch-utils",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "sql tag system fetch utils",
   "main": "dist/index.bundle.js",
   "module": "dist/index.js",
@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/Coeusium/coeusium-package-mono-repo",
   "dependencies": {
-    "sql-tag-system": "^0.0.10"
+    "sql-tag-system": "^0.0.11"
   },
   "devDependencies": {
     "@almaclaine/rollup-config": "^0.0.3",
