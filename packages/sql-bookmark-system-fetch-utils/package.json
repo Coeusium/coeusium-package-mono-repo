@@ -37,8 +37,8 @@
   },
   "homepage": "https://github.com/Coeusium/coeusium-package-mono-repo",
   "devDependencies": {
-    "@almaclaine/rollup-config": "^0.0.2",
-    "@almaclaine/ts-config": "^0.1.2",
+    "@almaclaine/rollup-config": "^0.0.3",
+    "@almaclaine/ts-config": "^0.1.3",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.22",
     "esm": "^3.2.25",
@@ -46,6 +46,5 @@
     "ts-jest": "^26.4.4",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
-  },
-  "gitHead": "4375f38d029bb674a4c12ee6e6b43ff445568233"
+  }
 }
