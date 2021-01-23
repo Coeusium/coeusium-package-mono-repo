@@ -38,7 +38,7 @@
   "homepage": "https://github.com/Coeusium/coeusium-package-mono-repo",
   "dependencies": {
     "@almaclaine/koa-utils": "^0.0.7",
-    "@almaclaine/mysql-utils": "^0.1.1",
+    "@almaclaine/mysql-utils": "^0.1.2",
     "@koa/router": "^10.0.0",
     "koa-compose": "^4.1.0",
     "sql-bookmark-system": "^0.0.4"

@@ -7,17 +7,17 @@
   resolved "https://registry.yarnpkg.com/@almaclaine/koa-utils/-/koa-utils-0.0.7.tgz#9cfcb1e4b44c1053933d12323f360e56ca919e18"
   integrity sha512-5PK6g/hU3ZgVOBRJllIL9Jxp8XfcRTE8j4rtLHMhQSGC1FJbwappRnkjanEdueyYTGMRolZCNr/bBu0XCESIHw==
 
-"@almaclaine/mysql-utils@^0.1.0":
+"@almaclaine/mysql-utils@^0.1.1":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@almaclaine/mysql-utils/-/mysql-utils-0.1.1.tgz#25508dafc920f7ba1d1adb07417b9d818046b2a8"
   integrity sha512-53n3A9Azb4LtADYCaORNkaVI1NsUoPjkorLq9u3mhoLLuZJFCLH3Y+aXGQgmDWOy/7Dxcxlfs35mKbdY1K0imA==
   dependencies:
     mysql2 "^2.2.5"
 
-"@almaclaine/rollup-config@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@almaclaine/rollup-config/-/rollup-config-0.0.2.tgz#5d86cf979a04b860da8dce3d780926cd8368d12e"
-  integrity sha512-bK1g8AAN3qcFQ5WFk+PD6aNAk3SlZCbhtVoPNboTtKmVbNvrSPugXb3KDPVSnHkzQQ0mTIpOGUglBrlwNZZLEw==
+"@almaclaine/rollup-config@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@almaclaine/rollup-config/-/rollup-config-0.0.3.tgz#72fc0bf1af973d6376a501a641516ca310b459c5"
+  integrity sha512-kxTQrDH3se7hNevJjBtk5qDkMIDw6WHYRgQupLiUq5MAiHeve9U9gTfpOvoqwxV64VUrYo9BsqG54b+Ge/OOyg==
   dependencies:
     "@babel/core" "^7.12.3"
     "@babel/preset-env" "^7.12.1"
@@ -27,7 +27,7 @@
     camelcase "^6.2.0"
     rollup "^2.33.3"
 
-"@almaclaine/ts-config@^0.1.2":
+"@almaclaine/ts-config@^0.1.3":
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/@almaclaine/ts-config/-/ts-config-0.1.3.tgz#ce9517f56205c336496f92cb4c5a67a1b87f43ce"
   integrity sha512-eZzp/Kd930SLlS/Y3d0cO9QkohVpfNBczWkeWhMXl/6fGgmxuk/7iNZiz4lrZOHoei9pFgWG5Avtiy2QF74pPQ==
