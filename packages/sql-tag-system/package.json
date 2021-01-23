@@ -1,6 +1,6 @@
 {
   "name": "sql-tag-system",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "sql based tagging system utility library.",
   "main": "dist/index.bundle.js",
   "module": "dist/index.js",

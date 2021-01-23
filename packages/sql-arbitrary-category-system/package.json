@@ -1,6 +1,6 @@
 {
   "name": "sql-arbitrary-category-system",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "sql arbitrary category system",
   "main": "dist/index.bundle.js",
   "module": "dist/index.js",
