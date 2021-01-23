@@ -76,8 +76,10 @@ export async function listCategorySets(
   limit = 20,
 ) {
   const sql = `SELECT * FROM category_set LIMIT ? OFFSET ?`;
-  const offset = limit * page;
-  return ((await execute(dbInfo, sql, [limit, offset])) as CategorySet[]) || [];
+  const offset = `${limit * page}`;
+  return (
+    ((await execute(dbInfo, sql, [`${limit}`, offset])) as CategorySet[]) || []
+  );
 }
 
 export async function deleteCategorySet(dbInfo: ConnectionInfo, id: string) {

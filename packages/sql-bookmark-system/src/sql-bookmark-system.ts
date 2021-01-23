@@ -66,8 +66,10 @@ export async function listBookmarks(
   limit = 20,
 ) {
   const sql = `SELECT * FROM bookmark LIMIT ? OFFSET ?`;
-  const offset = limit * page;
-  return ((await execute(dbInfo, sql, [limit, offset])) as Bookmark[]) || [];
+  const offset = `${limit * page}`;
+  return (
+    ((await execute(dbInfo, sql, [`${limit}`, offset])) as Bookmark[]) || []
+  );
 }
 
 export async function deleteBookmark(dbInfo: ConnectionInfo, id: string) {
