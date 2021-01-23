@@ -58,8 +58,8 @@ export async function getTag(dbInfo: ConnectionInfo, id: string) {
 
 export async function listTags(dbInfo: ConnectionInfo, page = 0, limit = 20) {
   const sql = `SELECT * FROM tag LIMIT ? OFFSET ?`;
-  const offset = limit * page;
-  return ((await execute(dbInfo, sql, [limit, offset])) as Tag[]) || [];
+  const offset = `${limit * page}`;
+  return ((await execute(dbInfo, sql, [`${limit}`, offset])) as Tag[]) || [];
 }
 
 export async function deleteTag(dbInfo: ConnectionInfo, id: string) {
