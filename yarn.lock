@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@almaclaine/error-utils/-/error-utils-0.0.2.tgz#258e40f53d6d86f7ccde7c51db64afa8053b3dae"
   integrity sha512-SsYyyanVzP0k/UVRXgFREZwZp+2V6D3bIdR93/Y38OHLrDfm7RcE3HbnNInFYNh1XF0x6P3lDuRdnxpW8oozRQ==
 
-"@almaclaine/fetch-utils@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@almaclaine/fetch-utils/-/fetch-utils-0.0.5.tgz#c5ce31ec60a93b890a6f07490f554c85ac9ced78"
-  integrity sha512-2030JKv+9Kkv9F98EHjVS2xGhjWSQHUEZ4eSYve40YwBU8e8CaVqMaBINIzE/LN2LZzRYzqu9Ph5i2YJh9L4uw==
+"@almaclaine/fetch-utils@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@almaclaine/fetch-utils/-/fetch-utils-0.0.6.tgz#00a3ba3082602d5c0f34d9750d1fabaeb1546417"
+  integrity sha512-FvsSiXJD1prJvs2wG+JE/TeqyUiJTKK0GsFbcXewEnwQCxboR4deiYWCgZj+S1zkuYU/6F0monwXq13uRSILRA==
   dependencies:
     "@almaclaine/error-utils" "^0.0.2"
     cross-fetch "^3.0.6"

@@ -49,5 +49,6 @@
   "dependencies": {
     "@almaclaine/error-utils": "^0.0.2",
     "@almaclaine/general-utils": "^0.0.16"
-  }
+  },
+  "gitHead": "03029cce770c13276bcd49c857ef10bdcd9df5ac"
 }
