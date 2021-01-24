@@ -1,110 +1,120 @@
-import { ConnectionInfo, execute } from '@almaclaine/mysql-utils';
-
-function makeId() {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-  let result = '';
-  const len = characters.length;
-  for (let i = 0; i < 16; i++) {
-    result += characters.charAt(Math.floor(Math.random() * len));
-  }
-  return result;
-}
-
-const createUserTable = `
-CREATE TABLE IF NOT EXISTS user (
-    id VARCHAR(16) NOT NULL UNIQUE,
-    email VARCHAR(320) NOT NULL UNIQUE,
-    username VARCHAR(32) NOT NULL UNIQUE,
-    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    verified TINYINT(1) DEFAULT 0,
-    logged_in TINYINT(1) DEFAULT 0,
-    PRIMARY KEY(id, email, username)
-);`;
-
-const createUserPasswordTable = `
-CREATE TABLE IF NOT EXISTS user_password (
-    user_id VARCHAR(16) NOT NULL UNIQUE,
-    password VARCHAR(128) NOT NULL UNIQUE,
-    PRIMARY KEY(user_id),
-    FOREIGN KEY (user_id) REFERENCES user(id)
-);`;
-
-const createUserLoginTable = `
-CREATE TABLE IF NOT EXISTS user_login (
-    user_id VARCHAR(16) NOT NULL,
-    login_date TIMESTAMP NOT NULL,
-    PRIMARY KEY(user_id),
-    FOREIGN KEY (user_id) REFERENCES user(id)
-);`;
-
-const createUserLogoutTable = `
-CREATE TABLE IF NOT EXISTS user_logout (
-    user_id VARCHAR(16) NOT NULL,
-    logout_date TIMESTAMP NOT NULL,
-    PRIMARY KEY(user_id),
-    FOREIGN KEY (user_id) REFERENCES user(id)
-);`;
-
-const createUserPasswordResetTable = `
-CREATE TABLE IF NOT EXISTS user_password_reset (
-    user_id VARCHAR(16) NOT NULL,
-    token VARCHAR(16) NOT NULL,
-    date_requested TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    completed TINYINT(1) DEFAULT 0,
-    PRIMARY KEY(user_id, token),
-    FOREIGN KEY (user_id) REFERENCES user(id)
-);`;
-
-const createAuthGroupTable = `
-CREATE TABLE IF NOT EXISTS auth_group (
-    group_name VARCHAR(32) NOT NULL UNIQUE,
-    group_parent VARCHAR(32) UNIQUE DEFAULT NULL,
-    PRIMARY KEY(group_name),
-    FOREIGN KEY (group_parent) REFERENCES auth_group(group_name),
-    CONSTRAINT GroupParentUnequal CHECK (group_name != group_parent)
-);`;
-
-const createAuthGroupMembershipTable = `
-CREATE TABLE IF NOT EXISTS auth_group_membership (
-    user_id VARCHAR(16) NOT NULL,
-    group_name VARCHAR(32) NOT NULL UNIQUE,
-    PRIMARY KEY(user_id, group_name),
-    FOREIGN KEY (user_id) REFERENCES user(id),
-    FOREIGN KEY (group_name) REFERENCES auth_group(group_name)
-);`;
+import {
+  ConnectionInfo,
+  execute,
+  setupDatabase,
+  idExistsInTable,
+  getFromTableById,
+  listFromTable,
+  deleteFromTableById,
+  readSQLFiles,
+} from '@almaclaine/mysql-utils';
+import {
+  InvalidEmail,
+  validateEmail,
+  makeId,
+  timeNowString,
+} from '@almaclaine/general-utils';
+import { User } from './types';
 
 export async function setupUserAuthSystem(dbInfo: ConnectionInfo) {
-  if (!dbInfo.host) throw new Error('Must provide host name');
-  if (!dbInfo.password)
-    throw new Error('Must provide password (environment variable recommended)');
-  if (!dbInfo.user) throw new Error('Must provide user');
-
-  const database = dbInfo.database || 'sql_user_auth_system';
-  await execute(
-    { ...dbInfo, database: '' },
-    `CREATE DATABASE IF NOT EXISTS ${database};`,
-  );
-
-  await execute({ ...dbInfo, database }, createUserTable);
-  await execute({ ...dbInfo, database }, createUserPasswordTable);
-  await execute({ ...dbInfo, database }, createUserLoginTable);
-  await execute({ ...dbInfo, database }, createUserLogoutTable);
-  await execute({ ...dbInfo, database }, createUserPasswordResetTable);
-  await execute({ ...dbInfo, database }, createAuthGroupTable);
-  await execute({ ...dbInfo, database }, createAuthGroupMembershipTable);
-  execute.destroyConnections();
+  await setupDatabase(dbInfo, 'sql_user_auth_system', await readSQLFiles());
 }
 
 export async function destroy() {
   execute.destroyConnections();
 }
 
-export async function tagIdExists(dbInfo: ConnectionInfo, id: string) {
-  const sql = `SELECT id FROM tag WHERE id = ? LIMIT 1;`;
-  return (await execute(dbInfo, sql, [id])).length === 1;
+export async function userIdExists(dbInfo: ConnectionInfo, id: string) {
+  return await idExistsInTable(dbInfo, 'user', id);
 }
+
+export async function addUser(
+  dbInfo: ConnectionInfo,
+  email: string,
+  username: string,
+) {
+  if (!validateEmail(email))
+    throw new InvalidEmail('Invalid email address passed to addUser');
+  const sql = `INSERT INTO user (id, email, username) VALUES (?, ?, ?);`;
+  let id = makeId();
+  while (await userIdExists(dbInfo, id)) id = makeId();
+  await execute(dbInfo, sql, [id, email, username]);
+  return id;
+}
+
+export async function getUserById(dbInfo: ConnectionInfo, id: string) {
+  return await getFromTableById<User>(dbInfo, 'user', id);
+}
+
+export async function getUserByUsername(
+  dbInfo: ConnectionInfo,
+  username: string,
+) {
+  const sql = `SELECT * FROM user WHERE username = ? LIMIT 1`;
+  return ((await execute(dbInfo, sql, [username]))[0] as User) || null;
+}
+
+export async function getUserByEmail(dbInfo: ConnectionInfo, email: string) {
+  const sql = `SELECT * FROM user WHERE email = ? LIMIT 1`;
+  return ((await execute(dbInfo, sql, [email]))[0] as User) || null;
+}
+
+export async function listUsers(dbInfo: ConnectionInfo, page = 0, limit = 20) {
+  return await listFromTable<User>(dbInfo, 'user', page, limit);
+}
+
+export async function deleteUserById(dbInfo: ConnectionInfo, id: string) {
+  await deleteFromTableById(dbInfo, 'user', id);
+}
+
+export async function deleteUserByUsername(
+  dbInfo: ConnectionInfo,
+  username: string,
+) {
+  const sql = `DELETE FROM user WHERE username = ?;`;
+  await execute(dbInfo, sql, [username]);
+}
+
+export async function deleteUserByEmail(dbInfo: ConnectionInfo, email: string) {
+  const sql = `DELETE FROM user WHERE email = ?;`;
+  await execute(dbInfo, sql, [email]);
+}
+
+export async function updateUserEmail(
+  dbInfo: ConnectionInfo,
+  id: string,
+  email: string,
+) {
+  const sql = `UPDATE user SET email = ? WHERE id = ?;`;
+  await execute(dbInfo, sql, [email, id]);
+}
+
+export async function updateUserUsername(
+  dbInfo: ConnectionInfo,
+  id: string,
+  username: string,
+) {
+  const sql = `UPDATE user SET username = ? WHERE id = ?;`;
+  await execute(dbInfo, sql, [username, id]);
+}
+
+export async function updateUserLastLogin(dbInfo: ConnectionInfo, id: string) {
+  const sql = `UPDATE user SET last_login = ? WHERE id = ?;`;
+  const login_date = timeNowString();
+  return await execute(dbInfo, sql, [login_date, id]);
+}
+
+// const dbInfo = {
+//     host: 'localhost',
+//     user: 'root',
+//     database: 'sql_user_auth_system',
+//     password: process.env.MYSQL_PW
+// };
 //
+// (async () => {
+//     await setupUserAuthSystem(dbInfo);
+// })()
+
 // export async function addTag(dbInfo: ConnectionInfo, tag: string) {
 //     const sql = `INSERT INTO tag (id, tag) VALUES (?, ?);`;
 //     let id = makeId();

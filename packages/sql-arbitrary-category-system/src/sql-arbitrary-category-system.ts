@@ -1,49 +1,18 @@
-import { ConnectionInfo, execute } from '@almaclaine/mysql-utils';
+import {
+  ConnectionInfo,
+  deleteFromTableById,
+  execute,
+  getFromTableById,
+  idExistsInTable,
+  listFromTable,
+  setupDatabase,
+  readSQLFiles,
+} from '@almaclaine/mysql-utils';
 import { Category, CategorySet } from './types';
-
-function makeId() {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-  let result = '';
-  const len = characters.length;
-  for (let i = 0; i < 16; i++) {
-    result += characters.charAt(Math.floor(Math.random() * len));
-  }
-  return result;
-}
-
-const createCategorySetTable = `
-CREATE TABLE IF NOT EXISTS category_set (
-    id VARCHAR(16) NOT NULL UNIQUE,
-    name VARCHAR(64) NOT NULL UNIQUE,
-    PRIMARY KEY(id)
-);`;
-
-const createCategorySystemTable = `
-CREATE TABLE IF NOT EXISTS category (
-    set_id VARCHAR(16) NOT NULL,
-    id VARCHAR(16) NOT NULL UNIQUE,
-    name VARCHAR(64) NOT NULL,
-    parent VARCHAR(16) DEFAULT NULL,
-    PRIMARY KEY(id, set_id),
-    FOREIGN KEY (set_id) REFERENCES category_set(id) ON DELETE CASCADE,
-    FOREIGN KEY (parent) REFERENCES category(id) ON DELETE CASCADE
-);`;
+import { makeId } from '@almaclaine/general-utils';
 
 export async function setupCategorySystem(dbInfo: ConnectionInfo) {
-  if (!dbInfo.host) throw new Error('Must provide host name');
-  if (!dbInfo.password)
-    throw new Error('Must provide password (environment variable recommended)');
-  if (!dbInfo.user) throw new Error('Must provide user');
-
-  const database = dbInfo.database || 'sql_category_system';
-  await execute(
-    { ...dbInfo, database: '' },
-    `CREATE DATABASE IF NOT EXISTS ${database};`,
-  );
-
-  await execute({ ...dbInfo, database }, createCategorySetTable);
-  await execute({ ...dbInfo, database }, createCategorySystemTable);
-  execute.destroyConnections();
+  await setupDatabase(dbInfo, 'sql_category_system', await readSQLFiles());
 }
 
 export async function destroy() {
@@ -53,8 +22,7 @@ export async function destroy() {
 // Category Set Utilities
 
 export async function categorySetIdExists(dbInfo: ConnectionInfo, id: string) {
-  const sql = `SELECT id FROM category_set WHERE id = ? LIMIT 1;`;
-  return (await execute(dbInfo, sql, [id])).length === 1;
+  return await idExistsInTable(dbInfo, 'category_set', id);
 }
 
 export async function addCategorySet(dbInfo: ConnectionInfo, setName: string) {
@@ -66,8 +34,7 @@ export async function addCategorySet(dbInfo: ConnectionInfo, setName: string) {
 }
 
 export async function getCategorySet(dbInfo: ConnectionInfo, id: string) {
-  const sql = `SELECT * FROM category_set WHERE id = ? LIMIT 1`;
-  return ((await execute(dbInfo, sql, [id]))[0] as CategorySet) || null;
+  return await getFromTableById<CategorySet>(dbInfo, 'category_set', id);
 }
 
 export async function listCategorySets(
@@ -75,23 +42,17 @@ export async function listCategorySets(
   page = 0,
   limit = 20,
 ) {
-  const sql = `SELECT * FROM category_set LIMIT ? OFFSET ?`;
-  const offset = `${limit * page}`;
-  return (
-    ((await execute(dbInfo, sql, [`${limit}`, offset])) as CategorySet[]) || []
-  );
+  return await listFromTable<CategorySet>(dbInfo, 'category_set', page, limit);
 }
 
 export async function deleteCategorySet(dbInfo: ConnectionInfo, id: string) {
-  const sql = `DELETE FROM category_set WHERE id=?`;
-  await execute(dbInfo, sql, [id]);
+  await deleteFromTableById(dbInfo, 'category_set', id);
 }
 
 // Category Utilities
 
 export async function categoryIdExists(dbInfo: ConnectionInfo, id: string) {
-  const sql = `SELECT id FROM category WHERE id = ? LIMIT 1;`;
-  return (await execute(dbInfo, sql, [id])).length === 1;
+  return await idExistsInTable(dbInfo, 'category', id);
 }
 
 export async function addCategory(
@@ -112,8 +73,7 @@ export async function addCategory(
 }
 
 export async function getCategory(dbInfo: ConnectionInfo, id: string) {
-  const sql = `SELECT * FROM category WHERE id = ? LIMIT 1`;
-  return ((await execute(dbInfo, sql, [id]))[0] as Category) || null;
+  return await getFromTableById<Category>(dbInfo, 'category', id);
 }
 
 export async function getTopLevelCategories(
@@ -146,6 +106,5 @@ export async function getCategoryDescendants(
 }
 
 export async function deleteCategory(dbInfo: ConnectionInfo, id: string) {
-  const sql = `DELETE FROM category WHERE id=?`;
-  await execute(dbInfo, sql, [id]);
+  await deleteFromTableById(dbInfo, 'category', id);
 }

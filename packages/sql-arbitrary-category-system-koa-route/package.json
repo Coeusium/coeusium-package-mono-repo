@@ -38,7 +38,7 @@
   },
   "homepage": "https://github.com/Coeusium/coeusium-package-mono-repo",
   "dependencies": {
-    "@almaclaine/koa-utils": "^0.0.9",
+    "@almaclaine/koa-utils": "^0.0.14",
     "@koa/router": "^10.0.0",
     "koa-compose": "^4.1.0",
     "sql-arbitrary-category-system": "^0.0.11"

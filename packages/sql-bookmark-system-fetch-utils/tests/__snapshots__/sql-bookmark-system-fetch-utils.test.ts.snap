@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sql-bookmark-fetch-utils Has Correct API 1`] = `
+Array [
+  "addBookmark",
+  "getBookmark",
+  "listBookmarks",
+  "deleteBookmark",
+]
+`;

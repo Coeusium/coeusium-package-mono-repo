@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS category_set (
+    id VARCHAR(16) NOT NULL UNIQUE,
+    name VARCHAR(64) NOT NULL UNIQUE,
+    PRIMARY KEY(id),
+    CONSTRAINT CATEGORY_SET_TABLE_categorySetIdMustBy16AlphaCharacters CHECK(REGEXP_LIKE (id,'^[A-Za-z]{16}'))
+);

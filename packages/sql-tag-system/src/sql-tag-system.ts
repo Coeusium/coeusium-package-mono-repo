@@ -1,24 +1,18 @@
 import {
-  addToTable,
   ConnectionInfo,
-  deleteFromTable,
+  deleteFromTableById,
   execute,
-  getFromTable,
+  getFromTableById,
   idExistsInTable,
   listFromTable,
   setupDatabase,
+  readSQLFiles,
 } from '@almaclaine/mysql-utils';
 import { Tag } from './types';
-
-const createTagTable = `
-CREATE TABLE IF NOT EXISTS tag (
-    id VARCHAR(16) NOT NULL UNIQUE,
-    tag VARCHAR(64) NOT NULL UNIQUE,
-    PRIMARY KEY(id)
-);`;
+import { makeId } from '@almaclaine/general-utils';
 
 export async function setupTagSystem(dbInfo: ConnectionInfo) {
-  await setupDatabase(dbInfo, 'sql_tag_system', [createTagTable]);
+  await setupDatabase(dbInfo, 'sql_tag_system', await readSQLFiles());
 }
 
 export async function destroy() {
@@ -30,11 +24,15 @@ export async function tagIdExists(dbInfo: ConnectionInfo, id: string) {
 }
 
 export async function addTag(dbInfo: ConnectionInfo, tag: string) {
-  return addToTable(dbInfo, 'tag', tag);
+  const sql = `INSERT INTO tag (id, tag) VALUES (?, ?);`;
+  let id = makeId();
+  while (await tagIdExists(dbInfo, id)) id = makeId();
+  await execute(dbInfo, sql, [id, tag]);
+  return id;
 }
 
 export async function getTag(dbInfo: ConnectionInfo, id: string) {
-  return getFromTable<Tag>(dbInfo, 'tag', id);
+  return getFromTableById<Tag>(dbInfo, 'tag', id);
 }
 
 export async function listTags(dbInfo: ConnectionInfo, page = 0, limit = 20) {
@@ -42,5 +40,5 @@ export async function listTags(dbInfo: ConnectionInfo, page = 0, limit = 20) {
 }
 
 export async function deleteTag(dbInfo: ConnectionInfo, id: string) {
-  return deleteFromTable(dbInfo, 'tag', id);
+  return deleteFromTableById(dbInfo, 'tag', id);
 }

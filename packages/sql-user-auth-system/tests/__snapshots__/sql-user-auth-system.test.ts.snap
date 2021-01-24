@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sql-user-auth-system-test Has Correct API 1`] = `
+Array [
+  "setupUserAuthSystem",
+  "destroy",
+  "userIdExists",
+  "addUser",
+  "getUserById",
+  "getUserByUsername",
+  "getUserByEmail",
+  "listUsers",
+  "deleteUserById",
+  "deleteUserByUsername",
+  "deleteUserByEmail",
+  "updateUserEmail",
+  "updateUserUsername",
+  "updateUserLastLogin",
+]
+`;

@@ -2,6 +2,7 @@ import { Tag } from './types';
 
 export async function addTag(tag) {
   const res = await fetch(`/api/tag?tag=${tag}`, { method: 'post' });
+  // if(!res.ok)
   const { id } = await res.json();
   return id as string;
 }

@@ -1,40 +1,18 @@
 import { ConnectionInfo, Bookmark } from './types';
-import { execute } from '@almaclaine/mysql-utils';
+import {
+  deleteFromTableById,
+  execute,
+  getFromTableById,
+  idExistsInTable,
+  listFromTable,
+  setupDatabase,
+  readSQLFiles,
+} from '@almaclaine/mysql-utils';
 import { URL } from 'url';
-
-function makeId() {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-  let result = '';
-  const len = characters.length;
-  for (let i = 0; i < 16; i++) {
-    result += characters.charAt(Math.floor(Math.random() * len));
-  }
-  return result;
-}
-
-const createBookmarkTable = `
-CREATE TABLE IF NOT EXISTS bookmark (
-    id VARCHAR(16) NOT NULL UNIQUE,
-    hostname VARCHAR(256) NOT NULL,
-    pathname VARCHAR(1024) NOT NULL,
-    date_added TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY(id)
-);`;
+import { makeId } from '@almaclaine/general-utils';
 
 export async function setupBookmarkSystem(dbInfo: ConnectionInfo) {
-  if (!dbInfo.host) throw new Error('Must provide host name');
-  if (!dbInfo.password)
-    throw new Error('Must provide password (environment variable recommended)');
-  if (!dbInfo.user) throw new Error('Must provide user');
-
-  const database = dbInfo.database || 'sql_bookmark_system';
-  await execute(
-    { ...dbInfo, database: '' },
-    `CREATE DATABASE IF NOT EXISTS ${database};`,
-  );
-
-  await execute({ ...dbInfo, database }, createBookmarkTable);
-  execute.destroyConnections();
+  await setupDatabase(dbInfo, 'sql_bookmark_system', await readSQLFiles());
 }
 
 export async function destroy() {
@@ -42,8 +20,7 @@ export async function destroy() {
 }
 
 export async function bookmarkIdExists(dbInfo: ConnectionInfo, id: string) {
-  const sql = `SELECT id FROM bookmark WHERE id = ? LIMIT 1;`;
-  return (await execute(dbInfo, sql, [id])).length === 1;
+  return await idExistsInTable(dbInfo, 'bookmark', id);
 }
 
 export async function addBookmark(dbInfo: ConnectionInfo, url: string) {
@@ -56,8 +33,7 @@ export async function addBookmark(dbInfo: ConnectionInfo, url: string) {
 }
 
 export async function getBookmark(dbInfo: ConnectionInfo, id: string) {
-  const sql = `SELECT * FROM bookmark WHERE id = ? LIMIT 1`;
-  return ((await execute(dbInfo, sql, [id]))[0] as Bookmark) || null;
+  return await getFromTableById<Bookmark>(dbInfo, 'bookmark', id);
 }
 
 export async function listBookmarks(
@@ -65,14 +41,9 @@ export async function listBookmarks(
   page = 0,
   limit = 20,
 ) {
-  const sql = `SELECT * FROM bookmark LIMIT ? OFFSET ?`;
-  const offset = `${limit * page}`;
-  return (
-    ((await execute(dbInfo, sql, [`${limit}`, offset])) as Bookmark[]) || []
-  );
+  return await listFromTable<Bookmark>(dbInfo, 'bookmark', page, limit);
 }
 
 export async function deleteBookmark(dbInfo: ConnectionInfo, id: string) {
-  const sql = `DELETE FROM bookmark WHERE id=?`;
-  await execute(dbInfo, sql, [id]);
+  await deleteFromTableById(dbInfo, 'bookmark', id);
 }
