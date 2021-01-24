@@ -3,7 +3,6 @@ import { almFetch } from '@almaclaine/fetch-utils';
 
 export async function addTag(tag) {
   const res = await almFetch(`/api/tag?tag=${tag}`, { method: 'post' });
-  // if(!res.ok)
   const { id } = await res.json();
   return id as string;
 }

@@ -1,0 +1,1 @@
+SELECT id FROM tag WHERE id = ? LIMIT 1;

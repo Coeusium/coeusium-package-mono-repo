@@ -15,25 +15,25 @@
     "@almaclaine/error-utils" "^0.0.2"
     cross-fetch "^3.0.6"
 
-"@almaclaine/general-utils@^0.0.16":
-  version "0.0.16"
-  resolved "https://registry.yarnpkg.com/@almaclaine/general-utils/-/general-utils-0.0.16.tgz#f3deaffa5cfdb39e8055b5095d6dc3b787c46c39"
-  integrity sha512-vaCA5byKQfm9H10bWpFyZMD2GDnTVLm3frIWYnzckxJsOU/IPuGYxXmyRs4R3l917Zqkpy9ybYY91JmbsCoYfw==
+"@almaclaine/general-utils@^0.0.17":
+  version "0.0.17"
+  resolved "https://registry.yarnpkg.com/@almaclaine/general-utils/-/general-utils-0.0.17.tgz#0e34794aa36f15f23f116612f920dfe55ff73228"
+  integrity sha512-VWZTvG5pn59KjldMin+bQ2y0u3kjtovdsLL1Q1/WEW14ep/qDXyTGOYBGfYhZZhepGFdOZ8FxMuBT31nkqDwrA==
   dependencies:
     "@almaclaine/error-utils" "^0.0.2"
 
-"@almaclaine/koa-utils@^0.0.22":
-  version "0.0.22"
-  resolved "https://registry.yarnpkg.com/@almaclaine/koa-utils/-/koa-utils-0.0.22.tgz#6a0bbef4e864245452a46eedd84cda6c4143d4f1"
-  integrity sha512-9KibRUzULx+ZXvTZahRljrr99OBOr/j1AGZTpFBvEWpeGu402U8FYPNYkVqmT/YHcbGZEQTT9GlvQOEo1DrjcQ==
+"@almaclaine/koa-utils@^0.0.23":
+  version "0.0.23"
+  resolved "https://registry.yarnpkg.com/@almaclaine/koa-utils/-/koa-utils-0.0.23.tgz#74aee4417bc2c85517c986d5e66a1ba3d691d9b7"
+  integrity sha512-zqAm9fpFTtTVO5ZwXud3UvzxOWSYxDjnLz4r2zFA1PTWF9TQrwP0+9UxwOj11UKlpDQIAv5HxiINDp8VqsKQzQ==
   dependencies:
-    "@almaclaine/general-utils" "^0.0.16"
+    "@almaclaine/general-utils" "^0.0.17"
     email-validator "^2.0.4"
 
-"@almaclaine/mysql-utils@^0.1.24":
-  version "0.1.24"
-  resolved "https://registry.yarnpkg.com/@almaclaine/mysql-utils/-/mysql-utils-0.1.24.tgz#5bfb684a59eb462e0e902f9b11b78be1ac0e36aa"
-  integrity sha512-OTo0lLIzT/84fO+t5vAG7Qgo8NGOrQKIHA6qo7ms4Ew1cn1Yhr8qzR0JDGLUhIMhZJjTGw0C+mm0dsrXw8YhJQ==
+"@almaclaine/mysql-utils@^0.1.30", "@almaclaine/mysql-utils@^0.1.31":
+  version "0.1.31"
+  resolved "https://registry.yarnpkg.com/@almaclaine/mysql-utils/-/mysql-utils-0.1.31.tgz#2f1899723793d7cfe784c0b4a7b6d72170168859"
+  integrity sha512-aXjeIxAgXUDZ9x7znlzHk4SkM+UvD2sxLUunV4At0DHK5E8EottMFQzsdIzx6vvU1/rqZVCxTcElrjFLWewBuQ==
   dependencies:
     "@almaclaine/error-utils" "^0.0.2"
     mysql2 "^2.2.5"

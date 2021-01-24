@@ -3,31 +3,41 @@ import {
   deleteFromTableById,
   execute,
   getFromTableById,
-  idExistsInTable,
+  checkExists,
   listFromTable,
   setupDatabase,
-  readSQLFiles,
+  readSQLTableFiles,
 } from '@almaclaine/mysql-utils';
 import { Tag } from './types';
 import { makeId } from '@almaclaine/general-utils';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+const readQuery = (file: string) =>
+  readFileSync(join(__dirname, 'sql', 'query', file), 'utf-8');
 
 export async function setupTagSystem(dbInfo: ConnectionInfo) {
-  await setupDatabase(dbInfo, 'sql_tag_system', await readSQLFiles());
+  await setupDatabase(
+    dbInfo,
+    'sql_tag_system',
+    await readSQLTableFiles(__dirname),
+  );
 }
 
 export async function destroy() {
   execute.destroyConnections();
 }
 
+const TAG_ID_EXISTS_QUERY = readQuery('insertTag.sql');
 export async function tagIdExists(dbInfo: ConnectionInfo, id: string) {
-  return idExistsInTable(dbInfo, 'tag', id);
+  return checkExists(await execute(dbInfo, TAG_ID_EXISTS_QUERY, [id]));
 }
 
+const INSERT_TAG_QUERY = readQuery('insertTag.sql');
 export async function addTag(dbInfo: ConnectionInfo, tag: string) {
-  const sql = `INSERT INTO tag (id, tag) VALUES (?, ?);`;
   let id = makeId();
   while (await tagIdExists(dbInfo, id)) id = makeId();
-  await execute(dbInfo, sql, [id, tag]);
+  await execute(dbInfo, INSERT_TAG_QUERY, [id, tag]);
   return id;
 }
 
