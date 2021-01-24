@@ -7,35 +7,33 @@
   resolved "https://registry.yarnpkg.com/@almaclaine/error-utils/-/error-utils-0.0.2.tgz#258e40f53d6d86f7ccde7c51db64afa8053b3dae"
   integrity sha512-SsYyyanVzP0k/UVRXgFREZwZp+2V6D3bIdR93/Y38OHLrDfm7RcE3HbnNInFYNh1XF0x6P3lDuRdnxpW8oozRQ==
 
-"@almaclaine/general-utils@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@almaclaine/general-utils/-/general-utils-0.0.6.tgz#efdcd1c851593d5bdf376d5c61e33e8f634b7730"
-  integrity sha512-/IyTW6VE9fqjc9h65bG4rdtORfaUFZ8BDry3nIEGBIykRH7o/u4KT2a4rnuK8yLGeUC0T52heTryle0rmrVGjA==
+"@almaclaine/fetch-utils@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@almaclaine/fetch-utils/-/fetch-utils-0.0.5.tgz#c5ce31ec60a93b890a6f07490f554c85ac9ced78"
+  integrity sha512-2030JKv+9Kkv9F98EHjVS2xGhjWSQHUEZ4eSYve40YwBU8e8CaVqMaBINIzE/LN2LZzRYzqu9Ph5i2YJh9L4uw==
   dependencies:
     "@almaclaine/error-utils" "^0.0.2"
-    "@almaclaine/koa-utils" "^0.0.14"
+    cross-fetch "^3.0.6"
 
-"@almaclaine/koa-utils@^0.0.14":
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/@almaclaine/koa-utils/-/koa-utils-0.0.14.tgz#5dbcf70b0cf445c3281cb5d75b5b9429996d184d"
-  integrity sha512-wpHfSQPCDpk/w37jkburMGrQJrwFBh5fJ3GGEC4+17lbidz3PVqhDuOAaXL3/94ve2YxIbeTBF65Dz5B/7lVOQ==
+"@almaclaine/general-utils@^0.0.16":
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/@almaclaine/general-utils/-/general-utils-0.0.16.tgz#f3deaffa5cfdb39e8055b5095d6dc3b787c46c39"
+  integrity sha512-vaCA5byKQfm9H10bWpFyZMD2GDnTVLm3frIWYnzckxJsOU/IPuGYxXmyRs4R3l917Zqkpy9ybYY91JmbsCoYfw==
   dependencies:
-    "@almaclaine/general-utils" "^0.0.6"
+    "@almaclaine/error-utils" "^0.0.2"
+
+"@almaclaine/koa-utils@^0.0.22":
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/@almaclaine/koa-utils/-/koa-utils-0.0.22.tgz#6a0bbef4e864245452a46eedd84cda6c4143d4f1"
+  integrity sha512-9KibRUzULx+ZXvTZahRljrr99OBOr/j1AGZTpFBvEWpeGu402U8FYPNYkVqmT/YHcbGZEQTT9GlvQOEo1DrjcQ==
+  dependencies:
+    "@almaclaine/general-utils" "^0.0.16"
     email-validator "^2.0.4"
 
-"@almaclaine/mysql-utils@^0.1.15":
-  version "0.1.15"
-  resolved "https://registry.yarnpkg.com/@almaclaine/mysql-utils/-/mysql-utils-0.1.15.tgz#73b60d3b6c224bff84b06235ec3a2093f78f5714"
-  integrity sha512-WayZkukNfxS/QWuVhje2eqF8U5jP/Id4cmMcCXgSm+0ckLVoJM/D/NLwqEVp5WQ3rNEra8rJPEbRqK/aZuqbrQ==
-  dependencies:
-    "@almaclaine/error-utils" "^0.0.2"
-    mysql2 "^2.2.5"
-    pkg-dir "^5.0.0"
-
-"@almaclaine/mysql-utils@^0.1.16":
-  version "0.1.16"
-  resolved "https://registry.yarnpkg.com/@almaclaine/mysql-utils/-/mysql-utils-0.1.16.tgz#ed6c6215f8a0bd44b37978bd477a6f51cb4099dd"
-  integrity sha512-slAP7B7V4cyZD4JPdwMgsDFdDooo8SbB1EL1sD/LeAzTvK3BYKAdNPStrI9eP6imzqDSY20shivWOrp55+DQDg==
+"@almaclaine/mysql-utils@^0.1.24":
+  version "0.1.24"
+  resolved "https://registry.yarnpkg.com/@almaclaine/mysql-utils/-/mysql-utils-0.1.24.tgz#5bfb684a59eb462e0e902f9b11b78be1ac0e36aa"
+  integrity sha512-OTo0lLIzT/84fO+t5vAG7Qgo8NGOrQKIHA6qo7ms4Ew1cn1Yhr8qzR0JDGLUhIMhZJjTGw0C+mm0dsrXw8YhJQ==
   dependencies:
     "@almaclaine/error-utils" "^0.0.2"
     mysql2 "^2.2.5"
@@ -3441,6 +3439,13 @@ create-require@^1.1.0:
   resolved "https://registry.yarnpkg.com/create-require/-/create-require-1.1.1.tgz#c1d7e8f1e5f6cfc9ff65f9cd352d37348756c333"
   integrity sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==
 
+cross-fetch@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.0.6.tgz#3a4040bc8941e653e0e9cf17f29ebcd177d3365c"
+  integrity sha512-KBPUbqgFjzWlVcURG+Svp9TlhA5uliYtiNx/0r8nv0pdypeQCRJ9IaSIc3q/x3q8t3F75cHuwxVql1HFGHCNJQ==
+  dependencies:
+    node-fetch "2.6.1"
+
 cross-spawn@^6.0.0:
   version "6.0.5"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-6.0.5.tgz#4a5ec7c64dfae22c3a14124dbacdee846d80cbc4"
@@ -6720,7 +6725,7 @@ node-fetch-npm@^2.0.2:
     json-parse-better-errors "^1.0.0"
     safe-buffer "^5.1.1"
 
-node-fetch@^2.5.0, node-fetch@^2.6.1:
+node-fetch@2.6.1, node-fetch@^2.5.0, node-fetch@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==

@@ -1,23 +1,24 @@
 import { Tag } from './types';
+import { almFetch } from '@almaclaine/fetch-utils';
 
 export async function addTag(tag) {
-  const res = await fetch(`/api/tag?tag=${tag}`, { method: 'post' });
+  const res = await almFetch(`/api/tag?tag=${tag}`, { method: 'post' });
   // if(!res.ok)
   const { id } = await res.json();
   return id as string;
 }
 
 export async function getTag(id) {
-  const res = await fetch(`/api/tag?id=${id}`);
+  const res = await almFetch(`/api/tag?id=${id}`);
   return (await res.json()) as Tag;
 }
 
 export async function listTags(page = 0, limit = 20) {
-  const res = await fetch(`/api/tag?page=${page}&limit=${limit}`);
+  const res = await almFetch(`/api/tag?page=${page}&limit=${limit}`);
   return (await res.json()) as Tag[];
 }
 
 export async function deleteTag(id) {
-  const res = await fetch(`/api/tag?id=${id}`, { method: 'delete' });
+  const res = await almFetch(`/api/tag?id=${id}`, { method: 'delete' });
   await res.json();
 }
