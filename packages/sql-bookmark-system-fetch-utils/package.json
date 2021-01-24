@@ -1,6 +1,6 @@
 {
   "name": "sql-bookmark-system-fetch-utils",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "sql bookmark system fetch utils",
   "main": "dist/index.bundle.js",
   "module": "dist/index.js",
