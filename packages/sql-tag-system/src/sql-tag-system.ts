@@ -7,6 +7,8 @@ import {
   listFromTable,
   setupDatabase,
   readSQLTableFiles,
+  getOneOrDefault,
+  getListOrDefault,
 } from '@almaclaine/mysql-utils';
 import { Tag } from './types';
 import { makeId } from '@almaclaine/general-utils';
@@ -28,12 +30,14 @@ export async function destroy() {
   execute.destroyConnections();
 }
 
-const TAG_ID_EXISTS_QUERY = readQuery('insertTag.sql');
+const TAG_ID_EXISTS_QUERY = readQuery('tagIdExists.sql');
+
 export async function tagIdExists(dbInfo: ConnectionInfo, id: string) {
   return checkExists(await execute(dbInfo, TAG_ID_EXISTS_QUERY, [id]));
 }
 
 const INSERT_TAG_QUERY = readQuery('insertTag.sql');
+
 export async function addTag(dbInfo: ConnectionInfo, tag: string) {
   let id = makeId();
   while (await tagIdExists(dbInfo, id)) id = makeId();
@@ -41,14 +45,27 @@ export async function addTag(dbInfo: ConnectionInfo, tag: string) {
   return id;
 }
 
+const GET_TAG_BY_ID_QUERY = readQuery('getTag.sql');
+
 export async function getTag(dbInfo: ConnectionInfo, id: string) {
-  return getFromTableById<Tag>(dbInfo, 'tag', id);
+  return getOneOrDefault<Tag>(
+    await execute(dbInfo, GET_TAG_BY_ID_QUERY, [id]),
+    null,
+  );
 }
+
+const LIST_TAGS_QUERY = readQuery('listTags.sql');
 
 export async function listTags(dbInfo: ConnectionInfo, page = 0, limit = 20) {
-  return listFromTable<Tag>(dbInfo, 'tag', page, limit);
+  const offset = `${limit * page}`;
+  return getListOrDefault<Tag>(
+    await execute(dbInfo, LIST_TAGS_QUERY, [`${limit}`, offset]),
+    [],
+  );
 }
 
+const DELETE_TAG_QUERY = readQuery('deleteTag.sql');
+
 export async function deleteTag(dbInfo: ConnectionInfo, id: string) {
-  return deleteFromTableById(dbInfo, 'tag', id);
+  await execute(dbInfo, DELETE_TAG_QUERY, [id]);
 }
