@@ -21,7 +21,8 @@
     "url": "https://github.com/Coeusium/coeusium-package-mono-repo.git"
   },
   "files": [
-    "dist"
+    "dist",
+    "sql"
   ],
   "keywords": [
     "Sql",
