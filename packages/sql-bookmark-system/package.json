@@ -1,6 +1,6 @@
 {
   "name": "sql-bookmark-system",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "sql bookmark system",
   "main": "dist/index.bundle.js",
   "module": "dist/index.js",
