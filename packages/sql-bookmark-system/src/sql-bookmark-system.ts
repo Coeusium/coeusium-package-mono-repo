@@ -64,12 +64,3 @@ const DELETE_BOOKMARK_QUERY = readQuery(__dirname, 'deleteBookmark.sql');
 export async function deleteBookmark(dbInfo: ConnectionInfo, id: string) {
   await execute(dbInfo, DELETE_BOOKMARK_QUERY, [id]);
 }
-
-(async () => {
-  await setupBookmarkSystem({
-    host: 'localhost',
-    user: 'root',
-    database: 'sql_bookmark_system',
-    password: process.env.MYSQL_PW,
-  });
-})();

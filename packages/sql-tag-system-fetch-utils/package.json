@@ -38,7 +38,7 @@
   "homepage": "https://github.com/Coeusium/coeusium-package-mono-repo",
   "dependencies": {
     "@almaclaine/fetch-utils": "^0.0.6",
-    "sql-tag-system": "^0.0.17"
+    "sql-tag-system": "^0.0.18"
   },
   "devDependencies": {
     "@almaclaine/rollup-config": "^0.0.4",
