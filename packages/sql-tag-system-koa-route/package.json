@@ -1,6 +1,6 @@
 {
   "name": "sql-tag-system-koa-route",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "koa route for working with sql-tag-system",
   "main": "dist/index.bundle.js",
   "module": "dist/index.js",
@@ -40,7 +40,7 @@
     "@almaclaine/koa-utils": "^0.0.24",
     "@koa/router": "^10.0.0",
     "koa-compose": "^4.1.0",
-    "sql-tag-system": "^0.0.14"
+    "sql-tag-system": "^0.0.15"
   },
   "devDependencies": {
     "@almaclaine/rollup-config": "^0.0.4",
