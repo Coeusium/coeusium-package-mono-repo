@@ -1,20 +1,15 @@
 import { ConnectionInfo, Bookmark } from './types';
 import {
-  deleteFromTableById,
   execute,
   setupDatabase,
   readSQLTableFiles,
   checkExists,
   getOneOrDefault,
   getListOrDefault,
+  readQuery,
 } from '@almaclaine/mysql-utils';
 import { URL } from 'url';
 import { makeId } from '@almaclaine/general-utils';
-import { readFileSync } from 'fs';
-import { join } from 'path';
-
-const readQuery = (file: string) =>
-  readFileSync(join(__dirname, 'sql', 'query', file), 'utf-8');
 
 export async function setupBookmarkSystem(dbInfo: ConnectionInfo) {
   await setupDatabase(
@@ -28,13 +23,13 @@ export async function destroy() {
   execute.destroyConnections();
 }
 
-const BOOKMARK_ID_EXISTS_QUERY = readQuery('bookmarkIdExists.sql');
+const BOOKMARK_ID_EXISTS_QUERY = readQuery(__dirname, 'bookmarkIdExists.sql');
 
 export async function bookmarkIdExists(dbInfo: ConnectionInfo, id: string) {
   return checkExists(await execute(dbInfo, BOOKMARK_ID_EXISTS_QUERY, [id]));
 }
 
-const INSERT_BOOKMARK_QUERY = readQuery('insertBookmark.sql');
+const INSERT_BOOKMARK_QUERY = readQuery(__dirname, 'insertBookmark.sql');
 
 export async function addBookmark(dbInfo: ConnectionInfo, url: string) {
   let id = makeId();
@@ -44,7 +39,7 @@ export async function addBookmark(dbInfo: ConnectionInfo, url: string) {
   return id;
 }
 
-const GET_BOOKMARK_BY_ID_QUERY = readQuery('getBookmark.sql');
+const GET_BOOKMARK_BY_ID_QUERY = readQuery(__dirname, 'getBookmark.sql');
 
 export async function getBookmark(dbInfo: ConnectionInfo, id: string) {
   return getOneOrDefault<Bookmark>(
@@ -53,7 +48,7 @@ export async function getBookmark(dbInfo: ConnectionInfo, id: string) {
   );
 }
 
-const LIST_BOOKMARKS_QUERY = readQuery('listBookmarks.sql');
+const LIST_BOOKMARKS_QUERY = readQuery(__dirname, 'listBookmarks.sql');
 
 export async function listBookmarks(
   dbInfo: ConnectionInfo,
@@ -67,8 +62,8 @@ export async function listBookmarks(
   );
 }
 
-const DELETE_BOOKMARK_QUERY = readQuery('deleteBookmark.sql');
+const DELETE_BOOKMARK_QUERY = readQuery(__dirname, 'deleteBookmark.sql');
 
-export async function deleteTag(dbInfo: ConnectionInfo, id: string) {
+export async function deleteBookmark(dbInfo: ConnectionInfo, id: string) {
   await execute(dbInfo, DELETE_BOOKMARK_QUERY, [id]);
 }

@@ -1,21 +1,15 @@
 import {
   ConnectionInfo,
-  deleteFromTableById,
   execute,
-  getFromTableById,
   setupDatabase,
   readSQLTableFiles,
   checkExists,
   getOneOrDefault,
   getListOrDefault,
+  readQuery,
 } from '@almaclaine/mysql-utils';
 import { Category, CategorySet } from './types';
 import { makeId } from '@almaclaine/general-utils';
-import { readFileSync } from 'fs';
-import { join } from 'path';
-
-const readQuery = (file: string) =>
-  readFileSync(join(__dirname, 'sql', 'query', file), 'utf-8');
 
 export async function setupCategorySystem(dbInfo: ConnectionInfo) {
   await setupDatabase(
@@ -31,13 +25,16 @@ export async function destroy() {
 
 // Category Set Utilities
 
-const CATEGORY_SET_ID_EXISTS_QUERY = readQuery('categorySetIdExists.sql');
+const CATEGORY_SET_ID_EXISTS_QUERY = readQuery(
+  __dirname,
+  'categorySetIdExists.sql',
+);
 
 export async function categorySetIdExists(dbInfo: ConnectionInfo, id: string) {
   return checkExists(await execute(dbInfo, CATEGORY_SET_ID_EXISTS_QUERY, [id]));
 }
 
-const INSERT_CATEGORY_SET_QUERY = readQuery('insertCategorySet.sql');
+const INSERT_CATEGORY_SET_QUERY = readQuery(__dirname, 'insertCategorySet.sql');
 
 export async function addCategorySet(dbInfo: ConnectionInfo, setName: string) {
   let id = makeId();
@@ -46,7 +43,7 @@ export async function addCategorySet(dbInfo: ConnectionInfo, setName: string) {
   return id;
 }
 
-const GET_CATEGORY_SET_BY_ID_QUERY = readQuery('getCategorySet.sql');
+const GET_CATEGORY_SET_BY_ID_QUERY = readQuery(__dirname, 'getCategorySet.sql');
 
 export async function getCategorySet(dbInfo: ConnectionInfo, id: string) {
   return getOneOrDefault<CategorySet>(
@@ -55,7 +52,7 @@ export async function getCategorySet(dbInfo: ConnectionInfo, id: string) {
   );
 }
 
-const LIST_CATEGORY_SETS_QUERY = readQuery('listCategorySetst.sql');
+const LIST_CATEGORY_SETS_QUERY = readQuery(__dirname, 'listCategorySets.sql');
 
 export async function listCategorySets(
   dbInfo: ConnectionInfo,
@@ -69,7 +66,7 @@ export async function listCategorySets(
   );
 }
 
-const DELETE_CATEGORY_SET_QUERY = readQuery('deleteCategorySet.sql');
+const DELETE_CATEGORY_SET_QUERY = readQuery(__dirname, 'deleteCategorySet.sql');
 
 export async function deleteCategorySet(dbInfo: ConnectionInfo, id: string) {
   await execute(dbInfo, DELETE_CATEGORY_SET_QUERY, [id]);
@@ -77,14 +74,17 @@ export async function deleteCategorySet(dbInfo: ConnectionInfo, id: string) {
 
 // Category Utilities
 
-const CATEGORY_ID_EXISTS_QUERY = readQuery('categoryIdExists.sql');
+const CATEGORY_ID_EXISTS_QUERY = readQuery(__dirname, 'categoryIdExists.sql');
 
 export async function categoryIdExists(dbInfo: ConnectionInfo, id: string) {
   return checkExists(await execute(dbInfo, CATEGORY_ID_EXISTS_QUERY, [id]));
 }
 
-const INSERT_CATEGORY_QUERY = readQuery('insertCategory.sql');
-const UPDATE_CATEGORY_PARENT_QUERY = readQuery('updateCategoryParent.sql');
+const INSERT_CATEGORY_QUERY = readQuery(__dirname, 'insertCategory.sql');
+const UPDATE_CATEGORY_PARENT_QUERY = readQuery(
+  __dirname,
+  'updateCategoryParent.sql',
+);
 
 export async function addCategory(
   dbInfo: ConnectionInfo,
@@ -101,7 +101,7 @@ export async function addCategory(
   return id;
 }
 
-const GET_CATEGORY_BY_ID_QUERY = readQuery('getCategory.sql');
+const GET_CATEGORY_BY_ID_QUERY = readQuery(__dirname, 'getCategory.sql');
 
 export async function getCategory(dbInfo: ConnectionInfo, id: string) {
   return getOneOrDefault<Category>(
@@ -110,7 +110,10 @@ export async function getCategory(dbInfo: ConnectionInfo, id: string) {
   );
 }
 
-const GET_TOP_LEVEL_CATEGORIES_QUERY = readQuery('getTopLevelCategories.sql');
+const GET_TOP_LEVEL_CATEGORIES_QUERY = readQuery(
+  __dirname,
+  'getTopLevelCategories.sql',
+);
 
 export async function getTopLevelCategories(
   dbInfo: ConnectionInfo,
@@ -122,7 +125,10 @@ export async function getTopLevelCategories(
   );
 }
 
-const GET_CATEGORY_CHILDREN_QUERY = readQuery('getCategoryChildren.sql');
+const GET_CATEGORY_CHILDREN_QUERY = readQuery(
+  __dirname,
+  'getCategoryChildren.sql',
+);
 
 export async function getCategoryChildren(dbInfo: ConnectionInfo, id: string) {
   return getListOrDefault<Category>(
@@ -147,7 +153,7 @@ export async function getCategoryDescendants(
   return [...children, ...rest];
 }
 
-const DELETE_CATEGORY_QUERY = readQuery('deleteCategory.sql');
+const DELETE_CATEGORY_QUERY = readQuery(__dirname, 'deleteCategory.sql');
 
 export async function deleteCategory(dbInfo: ConnectionInfo, id: string) {
   await execute(dbInfo, DELETE_CATEGORY_QUERY, [id]);

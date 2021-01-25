@@ -35,8 +35,8 @@
   },
   "homepage": "https://github.com/Coeusium/coeusium-package-mono-repo",
   "dependencies": {
-    "@almaclaine/general-utils": "^0.0.17",
-    "@almaclaine/mysql-utils": "^0.1.31"
+    "@almaclaine/general-utils": "^0.0.18",
+    "@almaclaine/mysql-utils": "^0.1.34"
   },
   "devDependencies": {
     "@almaclaine/rollup-config": "^0.0.4",
