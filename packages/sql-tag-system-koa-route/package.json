@@ -1,6 +1,6 @@
 {
   "name": "sql-tag-system-koa-route",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "koa route for working with sql-tag-system",
   "main": "dist/index.bundle.js",
   "module": "dist/index.js",
