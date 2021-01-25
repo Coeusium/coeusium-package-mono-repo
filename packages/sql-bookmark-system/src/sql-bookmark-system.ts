@@ -12,11 +12,8 @@ import { URL } from 'url';
 import { makeId } from '@almaclaine/general-utils';
 
 export async function setupBookmarkSystem(dbInfo: ConnectionInfo) {
-  await setupDatabase(
-    dbInfo,
-    'sql_bookmark_system',
-    await readSQLTableFiles(__dirname),
-  );
+  const files = await readSQLTableFiles(__dirname);
+  await setupDatabase(dbInfo, 'sql_bookmark_system', files);
 }
 
 export async function destroy() {
@@ -67,3 +64,12 @@ const DELETE_BOOKMARK_QUERY = readQuery(__dirname, 'deleteBookmark.sql');
 export async function deleteBookmark(dbInfo: ConnectionInfo, id: string) {
   await execute(dbInfo, DELETE_BOOKMARK_QUERY, [id]);
 }
+
+(async () => {
+  await setupBookmarkSystem({
+    host: 'localhost',
+    user: 'root',
+    database: 'sql_bookmark_system',
+    password: process.env.MYSQL_PW,
+  });
+})();
