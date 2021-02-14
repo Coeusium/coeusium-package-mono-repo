@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS tag (
     tag_id VARCHAR(16) NOT NULL UNIQUE,
     tag VARCHAR(64) NOT NULL UNIQUE,
-    PRIMARY KEY(id),
+    PRIMARY KEY(tag_id),
     CONSTRAINT TAG_TABLE_tagIdMustBy16AlphaCharacters CHECK(REGEXP_LIKE (tag_id,'^[A-Za-z]{16}'))
 );
