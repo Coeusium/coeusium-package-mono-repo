@@ -1,1 +1,1 @@
-INSERT INTO tag (id, tag) VALUES (?, ?);
+INSERT INTO tag (tag_id, tag) VALUES (?, ?);

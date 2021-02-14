@@ -1,1 +1,1 @@
-DELETE FROM tag WHERE id = ?;
+DELETE FROM tag WHERE tag_id = ?;

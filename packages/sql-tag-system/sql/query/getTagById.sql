@@ -1,1 +1,1 @@
-SELECT * FROM tag WHERE id = ? LIMIT 1;
+SELECT * FROM tag WHERE tag_id = ? LIMIT 1;
