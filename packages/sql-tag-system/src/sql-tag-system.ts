@@ -1,10 +1,7 @@
 import {
   ConnectionInfo,
-  deleteFromTableById,
   execute,
-  getFromTableById,
   checkExists,
-  listFromTable,
   setupDatabase,
   readSQLTableFiles,
   getOneOrDefault,
@@ -13,8 +10,6 @@ import {
 } from '@almaclaine/mysql-utils';
 import { Tag } from './types';
 import { makeId } from '@almaclaine/general-utils';
-import { readFileSync } from 'fs';
-import { join } from 'path';
 
 export async function setupTagSystem(dbInfo: ConnectionInfo) {
   await setupDatabase(
