@@ -1,6 +1,6 @@
 {
   "name": "sql-bookmark-system-koa-route",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "sql bookmark system koa route",
   "main": "dist/index.bundle.js",
   "module": "dist/index.js",
@@ -41,7 +41,7 @@
     "@almaclaine/mysql-utils": "^0.1.39",
     "@koa/router": "^10.0.0",
     "koa-compose": "^4.1.0",
-    "sql-bookmark-system": "^0.0.13"
+    "sql-bookmark-system": "^0.0.14"
   },
   "devDependencies": {
     "@almaclaine/rollup-config": "^0.0.4",
