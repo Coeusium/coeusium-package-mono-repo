@@ -1,6 +1,6 @@
 {
   "name": "sql-arbitrary-category-system-koa-route",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "description": "sql arbitrary category system koa routes",
   "main": "dist/index.bundle.js",
   "module": "dist/index.js",
@@ -41,7 +41,7 @@
     "@almaclaine/koa-utils": "^0.0.26",
     "@koa/router": "^10.0.0",
     "koa-compose": "^4.1.0",
-    "sql-arbitrary-category-system": "^0.0.19"
+    "sql-arbitrary-category-system": "^0.0.20"
   },
   "devDependencies": {
     "@almaclaine/rollup-config": "^0.0.6",
