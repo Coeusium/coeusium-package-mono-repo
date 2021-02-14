@@ -38,16 +38,16 @@
   },
   "homepage": "https://github.com/Coeusium/coeusium-package-mono-repo",
   "dependencies": {
-    "@almaclaine/koa-utils": "^0.0.24",
+    "@almaclaine/koa-utils": "^0.0.26",
     "@koa/router": "^10.0.0",
     "koa-compose": "^4.1.0",
     "sql-arbitrary-category-system": "^0.0.19"
   },
   "devDependencies": {
-    "@almaclaine/rollup-config": "^0.0.4",
+    "@almaclaine/rollup-config": "^0.0.6",
     "@almaclaine/ts-config": "^0.1.3",
     "@types/jest": "^26.0.20",
-    "@types/node": "^14.14.27",
+    "@types/node": "^14.14.28",
     "esm": "^3.2.25",
     "jest": "^26.6.3",
     "ts-jest": "^26.5.1",
