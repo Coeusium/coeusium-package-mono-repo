@@ -6,7 +6,8 @@ Array [
   "destroy",
   "tagIdExists",
   "addTag",
-  "getTag",
+  "getTagById",
+  "getTagByTag",
   "listTags",
   "deleteTag",
 ]

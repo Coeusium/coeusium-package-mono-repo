@@ -1,6 +1,6 @@
 export type { ConnectionInfo } from '@almaclaine/mysql-utils';
 
 export interface Tag {
-  id: string;
+  tag_id: string;
   tag: string;
 }

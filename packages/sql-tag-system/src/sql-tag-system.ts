@@ -25,25 +25,37 @@ export async function destroy() {
 
 const TAG_ID_EXISTS_QUERY = readQuery(__dirname, 'tagIdExists.sql');
 
-export async function tagIdExists(dbInfo: ConnectionInfo, id: string) {
-  return checkExists(await execute(dbInfo, TAG_ID_EXISTS_QUERY, [id]));
+export async function tagIdExists(dbInfo: ConnectionInfo, tag_id: string) {
+  return checkExists(await execute(dbInfo, TAG_ID_EXISTS_QUERY, [tag_id]));
 }
 
 const INSERT_TAG_QUERY = readQuery(__dirname, 'insertTag.sql');
 
 export async function addTag(dbInfo: ConnectionInfo, tag: string) {
-  let id = makeId();
-  while (await tagIdExists(dbInfo, id)) id = makeId();
-  await execute(dbInfo, INSERT_TAG_QUERY, [id, tag]);
-  return id;
+  if(tag.includes(',')) throw new Error('Tag may not include comma');
+  const checkForTag = await getTagByTag(dbInfo, tag);
+  if(checkForTag) return checkForTag.tag_id
+  let tag_id = makeId();
+  while (await tagIdExists(dbInfo, tag_id)) tag_id = makeId();
+  await execute(dbInfo, INSERT_TAG_QUERY, [tag_id, tag]);
+  return tag_id;
 }
 
-const GET_TAG_BY_ID_QUERY = readQuery(__dirname, 'getTag.sql');
+const GET_TAG_BY_ID_QUERY = readQuery(__dirname, 'getTagById.sql');
 
-export async function getTag(dbInfo: ConnectionInfo, id: string) {
+export async function getTagById(dbInfo: ConnectionInfo, tag_id: string) {
   return getOneOrDefault<Tag>(
-    await execute(dbInfo, GET_TAG_BY_ID_QUERY, [id]),
+    await execute(dbInfo, GET_TAG_BY_ID_QUERY, [tag_id]),
     null,
+  );
+}
+
+const GET_TAG_BY_TAG_QUERY = readQuery(__dirname, 'getTagByTag.sql');
+
+export async function getTagByTag(dbInfo: ConnectionInfo, tag: string) {
+  return getOneOrDefault<Tag>(
+      await execute(dbInfo, GET_TAG_BY_TAG_QUERY, [tag]),
+      null,
   );
 }
 
@@ -59,6 +71,6 @@ export async function listTags(dbInfo: ConnectionInfo, page = 0, limit = 20) {
 
 const DELETE_TAG_QUERY = readQuery(__dirname, 'deleteTag.sql');
 
-export async function deleteTag(dbInfo: ConnectionInfo, id: string) {
-  await execute(dbInfo, DELETE_TAG_QUERY, [id]);
+export async function deleteTag(dbInfo: ConnectionInfo, tag_id: string) {
+  await execute(dbInfo, DELETE_TAG_QUERY, [tag_id]);
 }
