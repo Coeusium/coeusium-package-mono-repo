@@ -2,7 +2,7 @@ import Router from '@koa/router';
 import {
   addTag,
   deleteTag,
-  getTag,
+  getTagById,
   listTags,
   tagIdExists,
 } from 'sql-tag-system';
@@ -15,7 +15,7 @@ export { destroy, setupTagSystem } from 'sql-tag-system';
 export function createGetTagHandler(dbInfo: ConnectionInfo) {
   return async (ctx) => {
     const { tag_id } = ctx.request.query;
-    ctx.body = await getTag(dbInfo, tag_id);
+    ctx.body = await getTagById(dbInfo, tag_id);
   };
 }
 
